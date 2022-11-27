@@ -1,21 +1,46 @@
-from collections import Counter
+def textsorted(txt):
+    tXxt = txt.replace(".", " ")
+    text = txt.replace(",", " ")
 
-action = input('Select action(1 or 2): ')
-txt = input("text: ").lower()
-txt = txt.replace(",", "")
-txt = txt.replace(".", "")
-splitted = txt.split()
-result = {}
+    allWords = txt.split()
+    allWordsSingle = {}
+    for word in allWords:
+        if len(word) > 3:
+            allWordsSingle.update({word: allWords.count(word)})
 
-if action == 1:
-    for i in splitted:
-        if len(i)>3:
-            c = Counter(splitted)
-            cc: list[tuple[str, int]] = c.most_common(5)
-            result.update(cc)
-            print(result)
-elif action == 2:
-        sorty = splitted.sort(key=len)
-        reversed = sorty.reverse()
-        b = result.update(reversed)
-        print(b)
+    keysSorted = []
+    for key in allWordsSingle:
+        keysSorted.append(key)
+
+    keysSorted.sort()
+
+    for key in keysSorted:
+        print(key)
+
+def textcounted(txt):
+    txt = txt.replace(".", " ")
+    txt = txt.replace(",", " ")
+
+    allWords = txt.split()
+    allWordsSingle = {}
+
+    for word in allWords:
+        if len(word) > 3:
+            allWordsSingle.update({word: allWords.count(word)})
+
+    keysSorted = []
+    for key in allWordsSingle:
+        keysSorted.append(key)
+    keysSorted.sort()
+
+    for key in keysSorted:
+        print(f"{key} - {allWordsSingle[key]}")
+
+txt = input("\n\nEnter a text: ")
+while True:
+             action = input("Select an action(1/2): ")
+
+             if action == 1:
+                     textcounted(txt)
+             elif action == 2:
+                textsorted(txt)
