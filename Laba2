@@ -1,0 +1,14 @@
+#include <stdio.h>
+
+int main() {
+    float number;
+    int percent;
+    printf("Type a number: ");
+    scanf("%f", &number);
+    printf("\nType a percent: ");
+    scanf("%d", &percent);
+    float result = (number / 100) * percent;
+    printf("Here's the result: %0.3f%%", result);
+
+    return 0;
+}
