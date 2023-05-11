@@ -1,0 +1,30 @@
+#include <stdio.h>
+int vowel_consonant(char chr);
+int main() {
+    char chr;
+
+    printf("Enter a letter: ");
+    scanf("%c", &chr);
+    int result = vowel_consonant(chr);
+    printf("%d", result);
+
+    return 0;
+}
+int vowel_consonant(char chr) {
+    char vowels[] = {'a', 'e', 'i', 'o', 'u'
+    };
+    char consonants[] = {'q', 'w', 'r', 't', 'y', 'p', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'z',  'x', 'c', 'v', 'b', 'n', 'm'
+    };
+    
+    
+    for (int i=0; i<20; ++i) {
+        if (chr == consonants[i]){
+            return 0;
+        }
+        else if (chr == vowels[i]) {
+                return 1;
+        }
+         
+    }
+}
+
