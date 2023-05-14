@@ -1,0 +1,27 @@
+#include <stdio.h>
+#include <string.h>
+
+#define MAX_LEN 100
+
+int main() {
+    char input[MAX_LEN];
+    char output[MAX_LEN];
+    int i, j, len;
+
+    printf("Введіть текст: ");
+    fgets(input, MAX_LEN, stdin);
+
+    len = strlen(input);
+    j = 0;
+    for (i = 0; i < len; i++) {
+        if (input[i] != 'a' && input[i] != 'o') {
+            output[j] = input[i];
+            j++;
+        }
+    }
+    output[j] = '\0';
+
+    printf("Текст без букв a та o: %s\n", output);
+
+    return 0;
+}
