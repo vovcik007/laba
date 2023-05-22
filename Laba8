@@ -1,0 +1,51 @@
+#include <stdio.h>
+
+#define ROWS 3
+#define COLS 3
+
+void findMinMax(int arr[ROWS][COLS], int *minValue, int *maxValue, int *minRow, int *minCol, int *maxRow, int *maxCol) {
+    *minValue = arr[0][0];
+    *maxValue = arr[0][0];
+    *minRow = 0;
+    *minCol = 0;
+    *maxRow = 0;
+    *maxCol = 0;
+
+    for (int i = 0; i < ROWS; i++) {
+        for (int j = 0; j < COLS; j++) {
+            if (arr[i][j] < *minValue) {
+                *minValue = arr[i][j];
+                *minRow = i;
+                *minCol = j;
+            }
+
+            if (arr[i][j] > *maxValue) {
+                *maxValue = arr[i][j];
+                *maxRow = i;
+                *maxCol = j;
+            }
+        }
+    }
+}
+
+int main() {
+    int arr[ROWS][COLS];
+
+    printf("Введіть елементи двовимірного масиву %dx%d:\n", ROWS, COLS);
+    for (int i = 0; i < ROWS; i++) {
+        for (int j = 0; j < COLS; j++) {
+            printf("Елемент [%d][%d]: ", i, j);
+            scanf("%d", &arr[i][j]);
+        }
+    }
+
+    int minValue, maxValue, minRow, minCol, maxRow, maxCol;
+    findMinMax(arr, &minValue, &maxValue, &minRow, &minCol, &maxRow, &maxCol);
+
+    printf("\nМінімальний елемент: %d\n", minValue);
+    printf("Індекс мінімального елемента: [%d][%d]\n", minRow, minCol);
+    printf("Максимальний елемент: %d\n", maxValue);
+    printf("Індекс максимального елемента: [%d][%d]\n", maxRow, maxCol);
+
+    return 0;
+}
