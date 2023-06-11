@@ -4,27 +4,7 @@
 <head>
   <title>Gastrointestinal Tract Diseases</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-    }
-
-    h1 {
-      text-align: center;
-    }
-
-    .question {
-      margin: 20px;
-    }
-
-    .result {
-      margin: 20px;
-      font-weight: bold;
-    }
-
-    .button {
-      display: block;
-      margin-top: 10px;
-    }
+    /* Стилі */
   </style>
 </head>
 <body>
@@ -36,28 +16,18 @@
     <button class="button" onclick="answerQuestion('no-specific-disease', true)">No</button>
   </div>
 
+  <!-- Додаткове питання -->
   <div class="question" id="question2" style="display: none;">
-    <h3>Is the pain localized in the lower right abdomen?</h3>
-    <button class="button" onclick="answerQuestion('appendicitis', true)">Yes</button>
+    <h3>Do you have nausea or vomiting?</h3>
+    <button class="button" onclick="answerQuestion('gastroenteritis', true)">Yes</button>
     <button class="button" onclick="answerQuestion('no-specific-disease', true)">No</button>
   </div>
 
+  <!-- Додаткове питання -->
   <div class="question" id="question3" style="display: none;">
-    <h3>Do you have a fever?</h3>
-    <button class="button" onclick="answerQuestion('appendicitis', true)">Yes</button>
+    <h3>Have you recently traveled abroad?</h3>
+    <button class="button" onclick="answerQuestion('travel-related-infection', true)">Yes</button>
     <button class="button" onclick="answerQuestion('no-specific-disease', true)">No</button>
-  </div>
-
-  <div class="question" id="question4" style="display: none;">
-    <h3>Do you have frequent episodes of diarrhea?</h3>
-    <button class="button" onclick="answerQuestion('ibd', true)">Yes</button>
-    <button class="button" onclick="answerQuestion('gastroenteritis', true)">No</button>
-  </div>
-
-  <div class="question" id="question5" style="display: none;">
-    <h3>Have you noticed blood in your stool?</h3>
-    <button class="button" onclick="answerQuestion('gastrointestinal-bleeding', true)">Yes</button>
-    <button class="button" onclick="answerQuestion('acid-reflux', true)">No</button>
   </div>
 
   <div class="result" id="result" style="display: none;"></div>
@@ -76,7 +46,6 @@
           disease = 'You might have appendicitis.';
         } else {
           disease = 'No specific disease found.';
-          
         }
       } else if (currentQuestion === 3 && diseaseOption === 'appendicitis') {
         if (isTrue) {
@@ -88,9 +57,50 @@
         if (isTrue) {
           disease = 'You might have appendicitis.';
         } else {
-          disease = 'No specific disease found.';}
-         
-</script>
+          disease = 'No specific disease found.';
+        }
+      } else if (currentQuestion === 2 && diseaseOption === 'gastroenteritis') {
+        if (isTrue) {
+          disease = 'You might have gastroenteritis.';
+        } else {
+          disease = 'No specific disease found.';
+        }
+      } else if (currentQuestion === 3 && diseaseOption === 'gastroenteritis') {
+        if (isTrue) {
+          disease = 'You might have gastroenteritis.';
+        } else {
+          disease = 'No specific disease found.';
+        }
+      } else if (currentQuestion === 4 && diseaseOption === 'gastroenteritis') {
+        if (isTrue) {
+          disease = 'You might have gastroenteritis.';
+        } else {
+          disease = 'No specific disease found.';
+        }
+      } else if (currentQuestion === 2 && diseaseOption === 'travel-related-infection') {
+        if (isTrue) {
+          disease = 'You might have a travel-related infection.';
+        } else {
+          disease = 'No specific disease found.';
+        }
+      } else if (currentQuestion === 3 && diseaseOption === 'travel-related-infection') {
+        if (isTrue) {
+          disease = 'You might have a travel-related infection.';
+        } else {
+          disease = 'No specific disease found.';
+        }
+      } else {
+        disease = 'No specific disease found.';
+      }
+
+      showResult();
+    }
+
+    function showResult() {
+      var resultElement = document.getElementById('result');
+      resultElement.innerHTML = disease;
+      resultElement.style.display = 'block';
+    }
+  </script>
 </body>
 </html>
-
