@@ -76,6 +76,7 @@
           disease = 'You might have appendicitis.';
         } else {
           disease = 'No specific disease found.';
+          
         }
       } else if (currentQuestion === 3 && diseaseOption === 'appendicitis') {
         if (isTrue) {
