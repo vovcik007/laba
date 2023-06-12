@@ -4,7 +4,6 @@
 <head>
   <title>Gastrointestinal Tract Diseases</title>
   <style>
-    /* Стилі */
   </style>
 </head>
 <body>
@@ -13,94 +12,66 @@
   <div class="question" id="question1">
     <h3>Do you experience severe abdominal pain?</h3>
     <button class="button" onclick="answerQuestion('appendicitis', true)">Yes</button>
-    <button class="button" onclick="answerQuestion('no-specific-disease', true)">No</button>
+    <button class="button" onclick="answerQuestion('no-specific-disease', false)">No</button>
   </div>
 
-  <!-- Додаткове питання -->
   <div class="question" id="question2" style="display: none;">
     <h3>Do you have nausea or vomiting?</h3>
     <button class="button" onclick="answerQuestion('gastroenteritis', true)">Yes</button>
-    <button class="button" onclick="answerQuestion('no-specific-disease', true)">No</button>
+    <button class="button" onclick="answerQuestion('no-specific-disease', false)">No</button>
   </div>
 
-  <!-- Додаткове питання -->
   <div class="question" id="question3" style="display: none;">
     <h3>Have you recently traveled abroad?</h3>
     <button class="button" onclick="answerQuestion('travel-related-infection', true)">Yes</button>
-    <button class="button" onclick="answerQuestion('no-specific-disease', true)">No</button>
+    <button class="button" onclick="answerQuestion('no-specific-disease', false)">No</button>
   </div>
 
   <div class="result" id="result" style="display: none;"></div>
 
   <script>
     var currentQuestion = 1;
-    var disease = '';
+    var diseases = [];
 
     function answerQuestion(diseaseOption, isTrue) {
       if (isTrue) {
-        currentQuestion++;
+        diseases.push(diseaseOption);
       }
 
-      if (currentQuestion === 2 && diseaseOption === 'appendicitis') {
+      if (currentQuestion === 1) {
         if (isTrue) {
-          disease = 'You might have appendicitis.';
+          document.getElementById('question1').style.display = 'none';
+          document.getElementById('question2').style.display = 'block';
+          currentQuestion = 2;
         } else {
-          disease = 'No specific disease found.';
+          document.getElementById('question1').style.display = 'none';
+          document.getElementById('question2').style.display = 'block';
+          currentQuestion = 2;
         }
-      } else if (currentQuestion === 3 && diseaseOption === 'appendicitis') {
+      } else if (currentQuestion === 2) {
         if (isTrue) {
-          disease = 'You might have appendicitis.';
+          document.getElementById('question2').style.display = 'none';
+          document.getElementById('question3').style.display = 'block';
+          currentQuestion = 3;
         } else {
-          disease = 'No specific disease found.';
+          document.getElementById('question2').style.display = 'none';
+          document.getElementById('question3').style.display = 'block';
+          currentQuestion = 3;
         }
-      } else if (currentQuestion === 4 && diseaseOption === 'appendicitis') {
-        if (isTrue) {
-          disease = 'You might have appendicitis.';
-        } else {
-          disease = 'No specific disease found.';
-        }
-      } else if (currentQuestion === 2 && diseaseOption === 'gastroenteritis') {
-        if (isTrue) {
-          disease = 'You might have gastroenteritis.';
-        } else {
-          disease = 'No specific disease found.';
-        }
-      } else if (currentQuestion === 3 && diseaseOption === 'gastroenteritis') {
-        if (isTrue) {
-          disease = 'You might have gastroenteritis.';
-        } else {
-          disease = 'No specific disease found.';
-        }
-      } else if (currentQuestion === 4 && diseaseOption === 'gastroenteritis') {
-        if (isTrue) {
-          disease = 'You might have gastroenteritis.';
-        } else {
-          disease = 'No specific disease found.';
-        }
-      } else if (currentQuestion === 2 && diseaseOption === 'travel-related-infection') {
-        if (isTrue) {
-          disease = 'You might have a travel-related infection.';
-        } else {
-          disease = 'No specific disease found.';
-        }
-      } else if (currentQuestion === 3 && diseaseOption === 'travel-related-infection') {
-        if (isTrue) {
-          disease = 'You might have a travel-related infection.';
-        } else {
-          disease = 'No specific disease found.';
-        }
-      } else {
-        disease = 'No specific disease found.';
+      } else if (currentQuestion === 3) {
+        document.getElementById('question3').style.display = 'none';
+        document.getElementById('result').style.display = 'block';
+        showResult();
       }
-
-      showResult();
     }
 
     function showResult() {
       var resultElement = document.getElementById('result');
-      resultElement.innerHTML = disease;
+      resultElement.innerHTML = 'Positive diseases: ' + diseases.join(', ');
       resultElement.style.display = 'block';
     }
   </script>
 </body>
 </html>
+
+           
