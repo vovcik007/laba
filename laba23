@@ -1,0 +1,31 @@
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+double fullSurface(double r, double h) {
+    
+    double p = 3.14;
+    double l = sqrt(pow(r,2) + pow(h,2));
+    return p*pow(r,2) + p*r*l;
+}
+double volume(double r, double h) {
+   
+   double  p = 3.14;
+   return (p*pow(r,2))/3.0;
+}
+
+int main() {
+     double r, l, h, p;
+     p = 3.14;
+    cout << "Enter the value of radius: ";
+    cin >> r;
+    cout << "Enter the value of height: ";
+    cin >> h;
+    double Fullsurface = fullSurface(r, h);
+    double Volume = volume(r,h);
+    
+    cout << "The area of the full surface of the cone is " << Fullsurface << endl;
+    cout << "The volume of the cone is " << Volume;
+
+    return 0;
+}
