@@ -1,0 +1,67 @@
+#include <iostream>
+#include <string>
+#include <algorithm>
+#include <vector>
+
+struct FacultyData {
+    std::string surname;
+    std::string subject;
+    std::string group;
+    int failedStudents;
+};
+
+bool compareBySurname(const FacultyData& a, const FacultyData& b) {
+    return a.surname < b.surname;
+}
+
+bool compareByFailedStudents(const FacultyData& a, const FacultyData& b) {
+    return a.failedStudents > b.failedStudents;
+}
+
+int main() {
+    const int dataSize = 3;  // Замініть на бажану кількість записів
+    std::vector<FacultyData> faculty(dataSize);
+
+    // Ввід даних
+    for (int i = 0; i < dataSize; ++i) {
+        std::cout << "Введіть дані для викладача #" << i + 1 << ":\n";
+        std::cout << "Прізвище викладача: ";
+        std::cin >> faculty[i].surname;
+        std::cout << "Назва предмету: ";
+        std::cin >> faculty[i].subject;
+        std::cout << "Назва групи: ";
+        std::cin >> faculty[i].group;
+        std::cout << "Кількість студентів, що не здали екзамен: ";
+        std::cin >> faculty[i].failedStudents;
+    }
+
+    // Сортування за прізвищем
+    std::sort(faculty.begin(), faculty.end(), compareBySurname);
+
+    // Вивід інформації про всіх викладачів
+    std::cout << "\nІнформація про всіх викладачів:\n";
+    for (const auto& data : faculty) {
+        std::cout << "Прізвище: " << data.surname << ", Предмет: " << data.subject
+                  << ", Група: " << data.group << ", Не здали екзамен: " << data.failedStudents << "\n";
+    }
+
+    // Сортування за кількістю студентів, що не здали екзамен
+    std::sort(faculty.begin(), faculty.end(), compareByFailedStudents);
+
+    // Вивід інформації про викладачів з більше ніж 5 заборгованостями
+    std::cout << "\nІнформація про викладачів з 5 і більше заборгованостями:\n";
+    bool found = false;
+    for (const auto& data : faculty) {
+        if (data.failedStudents >= 5) {
+            std::cout << "Прізвище: " << data.surname << ", Предмет: " << data.subject
+                      << ", Група: " << data.group << ", Не здали екзамен: " << data.failedStudents << "\n";
+            found = true;
+        }
+    }
+
+    if (!found) {
+        std::cout << "Відсутні викладачі з 5 і більше заборгованостями.\n";
+    }
+
+    return 0;
+}
