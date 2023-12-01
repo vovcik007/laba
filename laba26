@@ -1,0 +1,70 @@
+#include <iostream>
+#include <cmath>
+
+class ParentClass {
+private:
+    double x, y, z;
+
+public:
+    // Конструктор
+    ParentClass(double x_val, double y_val, double z_val) : x(x_val), y(y_val), z(z_val) {}
+
+    // Перевантажений конструктор за замовчуванням
+    ParentClass() : x(0), y(0), z(0) {}
+
+    // Деструктор
+    ~ParentClass() {
+        std::cout << "Object destroyed" << std::endl;
+    }
+
+    // Set-методи
+    void setX(double x_val) {
+        x = x_val;
+    }
+
+    void setY(double y_val) {
+        y = y_val;
+    }
+
+    void setZ(double z_val) {
+        z = z_val;
+    }
+
+    // Get-методи
+    double getX() const {
+        return x;
+    }
+
+    double getY() const {
+        return y;
+    }
+
+    double getZ() const {
+        return z;
+    }
+
+    // Функція для обчислення середнього геометричного
+    double calculateGeometricMean() const {
+        return std::pow(x * y * z, 1.0 / 3.0);
+    }
+
+    // Функція для обчислення суми цифр
+    int calculateDigitSum() const {
+        int sum = 0;
+        sum += static_cast<int>(x) % 10 + static_cast<int>(y) % 10 + static_cast<int>(z) % 10;
+        return sum;
+    }
+};
+
+int main() {
+    // Створення об'єкта класу
+    ParentClass parent(2.0, 3.0, 4.0);
+
+    // Виведення середнього геометричного
+    std::cout << "Geometric Mean: " << parent.calculateGeometricMean() << std::endl;
+
+    // Виведення суми цифр
+    std::cout << "Digit Sum: " << parent.calculateDigitSum() << std::endl;
+
+    return 0;
+}
