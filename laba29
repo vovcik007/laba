@@ -1,0 +1,90 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+template <typename T>
+class RectangularMatrix {
+private:
+    std::vector<std::vector<T>> matrix;
+
+public:
+    RectangularMatrix(const std::vector<std::vector<T>>& inputMatrix) : matrix(inputMatrix) {}
+
+    int countColumnsWithZero() {
+        int count = 0;
+        for (size_t col = 0; col < matrix[0].size(); ++col) {
+            for (size_t row = 0; row < matrix.size(); ++row) {
+                if (matrix[row][col] == 0) {
+                    ++count;
+                    break;
+                }
+            }
+        }
+        return count;
+    }
+
+    int findRowWithLongestSeries() {
+        size_t longestSeriesLength = 0;
+        size_t longestSeriesRow = 0;
+
+        for (size_t row = 0; row < matrix.size(); ++row) {
+            size_t currentSeriesLength = 1;
+
+            for (size_t col = 1; col < matrix[row].size(); ++col) {
+                if (matrix[row][col] == matrix[row][col - 1]) {
+                    ++currentSeriesLength;
+                } else {
+                    currentSeriesLength = 1;
+                }
+
+                if (currentSeriesLength > longestSeriesLength) {
+                    longestSeriesLength = currentSeriesLength;
+                    longestSeriesRow = row;
+                }
+            }
+        }
+
+        return longestSeriesRow;
+    }
+
+    void orderMatrix() {
+        for (size_t row = 0; row < matrix.size(); ++row) {
+            std::sort(matrix[row].begin(), matrix[row].end());
+        }
+
+        std::sort(matrix.begin(), matrix.end(), [](const auto& a, const auto& b) {
+            return std::adjacent_find(a.begin(), a.end(), std::not_equal_to<T>()) == a.end();
+        });
+    }
+
+    void printMatrix() {
+        for (const auto& row : matrix) {
+            for (const auto& element : row) {
+                std::cout << element << " ";
+            }
+            std::cout << std::endl;
+        }
+    }
+};
+
+int main() {
+    std::vector<std::vector<int>> inputMatrix = {
+        {1, 2, 2, 3},
+        {4, 5, 6, 6},
+        {7, 8, 9, 9},
+        {0, 1, 2, 3}
+    };
+
+    RectangularMatrix<int> matrix(inputMatrix);
+
+    std::cout << "Columns with at least one zero: " << matrix.countColumnsWithZero() << std::endl;
+
+    int longestSeriesRow = matrix.findRowWithLongestSeries();
+    std::cout << "Row with the longest series of identical elements: " << longestSeriesRow << std::endl;
+
+    matrix.orderMatrix();
+    std::cout << "Ordered Matrix:" << std::endl;
+    matrix.printMatrix();
+
+    return 0;
+}
