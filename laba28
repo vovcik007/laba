@@ -1,0 +1,56 @@
+#include <iostream>
+
+class ParentClass {
+protected:
+    double x, y, z;
+
+public:
+    ParentClass(double x_val, double y_val, double z_val) : x(x_val), y(y_val), z(z_val) {}
+};
+
+class DerivedClass : public ParentClass {
+private:
+    double a, b, c;
+
+public:
+    DerivedClass(double x_val, double y_val, double z_val, double a_val, double b_val, double c_val)
+        : ParentClass(x_val, y_val, z_val), a(a_val), b(b_val), c(c_val) {}
+
+    double calculateScalarProduct() const {
+        return x * a + y * b + z * c;
+    }
+};
+
+int main() {
+    // Зчитування значень з клавіатури
+    double x, y, z, a, b, c;
+
+    std::cout << "Enter value for x: ";
+    std::cin >> x;
+
+    std::cout << "Enter value for y: ";
+    std::cin >> y;
+
+    std::cout << "Enter value for z: ";
+    std::cin >> z;
+
+    std::cout << "Enter value for a: ";
+    std::cin >> a;
+
+    std::cout << "Enter value for b: ";
+    std::cin >> b;
+
+    std::cout << "Enter value for c: ";
+    std::cin >> c;
+
+    // Створення об'єкта класу-нащадка DerivedClass
+    DerivedClass derivedObj(x, y, z, a, b, c);
+
+    // Виклик методу для обчислення скалярного добутку
+    double scalarProduct = derivedObj.calculateScalarProduct();
+
+    // Виведення результату на екран
+    std::cout << "Scalar Product: " << scalarProduct << std::endl;
+
+    return 0;
+}
