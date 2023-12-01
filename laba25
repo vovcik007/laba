@@ -1,0 +1,103 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <algorithm>
+#include <vector>
+
+struct FacultyData {
+    std::string surname;
+    std::string subject;
+    std::string group;
+    int failedStudents;
+};
+
+bool compareBySurname(const FacultyData& a, const FacultyData& b) {
+    return a.surname < b.surname;
+}
+
+bool compareByFailedStudents(const FacultyData& a, const FacultyData& b) {
+    return a.failedStudents > b.failedStudents;
+}
+
+void saveDataToFile(const std::vector<FacultyData>& faculty, const std::string& filename) {
+    std::ofstream outFile(filename);
+
+    for (const auto& data : faculty) {
+        outFile << data.surname << ' ' << data.subject << ' ' << data.group << ' ' << data.failedStudents << '\n';
+    }
+
+    std::cout << "Data saved to " << filename << "\n";
+}
+
+void loadDataFromFile(std::vector<FacultyData>& faculty, const std::string& filename) {
+    std::ifstream inFile(filename);
+
+    if (!inFile.is_open()) {
+        std::cerr << "Error opening file " << filename << "\n";
+        return;
+    }
+
+    faculty.clear();  // Clear existing data
+
+    FacultyData data;
+    while (inFile >> data.surname >> data.subject >> data.group >> data.failedStudents) {
+        faculty.push_back(data);
+    }
+
+    std::cout << "Data loaded from " << filename << "\n";
+}
+
+int main() {
+    const int dataSize = 3;
+    std::vector<FacultyData> faculty(dataSize);
+
+    // Loading data from file if available
+    loadDataFromFile(faculty, "faculty_data.txt");
+
+    // Gathering information about teachers and students who failed exams
+    for (int i = 0; i < dataSize; ++i) {
+        std::cout << "Enter data for teacher #" << i + 1 << ":\n";
+        std::cout << "Teacher's surname: ";
+        std::cin >> faculty[i].surname;
+        std::cout << "Subject name: ";
+        std::cin >> faculty[i].subject;
+        std::cout << "Group name: ";
+        std::cin >> faculty[i].group;
+        std::cout << "Number of students who failed the exam: ";
+        std::cin >> faculty[i].failedStudents;
+    }
+
+    // Sorting data based on teacher's surname
+    std::sort(faculty.begin(), faculty.end(), compareBySurname);
+
+    // Displaying information about all teachers
+    std::cout << "\nInformation about all teachers:\n";
+    for (const auto& data : faculty) {
+        std::cout << "Surname: " << data.surname << ", Subject: " << data.subject
+                  << ", Group: " << data.group << ", Failed students: " << data.failedStudents << "\n";
+    }
+
+    // Sorting data based on the number of students who failed the exam
+    std::sort(faculty.begin(), faculty.end(), compareByFailedStudents);
+
+    // Displaying information about teachers with 5 or more students who failed
+    std::cout << "\nInformation about teachers with 5 or more failed students:\n";
+    bool found = false;
+    for (const auto& data : faculty) {
+        if (data.failedStudents >= 5) {
+            std::cout << "Surname: " << data.surname << ", Subject: " << data.subject
+                      << ", Group: " << data.group << ", Failed students: " << data.failedStudents << "\n";
+            found = true;
+        }
+    }
+
+    // Notifying if no teachers with 5 or more failed students were found
+    if (!found) {
+        std::cout << "No teachers with 5 or more failed students.\n";
+    }
+
+    // Saving data to file
+    saveDataToFile(faculty, "faculty_data.txt");
+
+    return 0;
+}
