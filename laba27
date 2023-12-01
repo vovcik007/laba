@@ -1,0 +1,69 @@
+#include <iostream>
+
+class ParentClass {
+private:
+    double x, y, z;
+
+public:
+    // ... (інші члени класу)
+
+    // Перевантаження унарного оператора "++" (постфіксний)
+    ParentClass operator++(int) {
+        ParentClass temp = *this;  // Запам'ятовуємо поточний об'єкт
+        x++;
+        y++;
+        z++;
+        return temp;  // Повертаємо запам'ятований об'єкт
+    }
+
+    // Перевантаження унарного оператора "--" (постфіксний)
+    ParentClass operator--(int) {
+        ParentClass temp = *this;  // Запам'ятовуємо поточний об'єкт
+        x--;
+        y--;
+        z--;
+        return temp;  // Повертаємо запам'ятований об'єкт
+    }
+
+    // Перевантаження бінарного оператора "+"
+    ParentClass operator+(const ParentClass& other) const {
+        ParentClass result;
+        result.x = x + other.x;
+        result.y = y + other.y;
+        result.z = z + other.z;
+        return result;
+    }
+
+    // Перевантаження бінарного оператора "-"
+    ParentClass operator-(const ParentClass& other) const {
+        ParentClass result;
+        result.x = x - other.x;
+        result.y = y - other.y;
+        result.z = z - other.z;
+        return result;
+    }
+
+    // ... (інші члени класу)
+};
+
+int main() {
+    // Створення об'єктів класу
+    ParentClass obj1(1.0, 2.0, 3.0);
+    ParentClass obj2(4.0, 5.0, 6.0);
+
+    // Використання перевантажених операторів
+    ParentClass result1 = obj1 + obj2;  // Виклик перевантаженого оператора "+"
+    ParentClass result2 = obj1 - obj2;  // Виклик перевантаженого оператора "-"
+
+    std::cout << "Result of obj1 + obj2: " << result1.getX() << ", " << result1.getY() << ", " << result1.getZ() << std::endl;
+    std::cout << "Result of obj1 - obj2: " << result2.getX() << ", " << result2.getY() << ", " << result2.getZ() << std::endl;
+
+    // Виклик перевантажених операторів "++" та "--"
+    ParentClass obj3 = obj1++;  // Постфіксний "++"
+    ParentClass obj4 = obj2--;  // Постфіксний "--"
+
+    std::cout << "Result of obj1++: " << obj3.getX() << ", " << obj3.getY() << ", " << obj3.getZ() << std::endl;
+    std::cout << "Result of obj2--: " << obj4.getX() << ", " << obj4.getY() << ", " << obj4.getZ() << std::endl;
+
+    return 0;
+}
